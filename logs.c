@@ -33,19 +33,20 @@ int invalid_duration(float reading);
 */
 int remove_duplicates(int ids[], float durations[], int views[], int size) {
   for (int i = 0; i < size - 1; i++) {
-    int current_id = ids[0];
+    int current_id = ids[i];
 
     // Check if any of the remaining elements have the same ID
     for (int j = i + 1; j < size; j++) {
 
       // Is there a match?
-      if (current_id = ids[j]) {
+      if (current_id == ids[j]) {
         // "Delete" it by shifting all elements left by one
         for (int k = j; k < size - 1; k++) {
           ids[k]       = ids[k+1];
           durations[k] = durations[k+1];
           views[k]     = views[k+1];
         }
+        size--;
       }
     }
   }
@@ -77,6 +78,23 @@ int input_logs(int ids[], float durations[], int views[]) {
     }
 
     //invalid checks will go here
+    int check = invalid_id(id) + invalid_duration(duration);
+    if (check != ERR_OK) {
+      if (check == ERR_INVALID_ID) {
+        printf("Invalid ID: %d\n", id);
+      }  
+      else if (check == ERR_INVALID_DURATION) {
+        printf("Invalid duration: %.1f\n", duration);
+      }
+      else if (check == ERR_INVALID_ID + ERR_INVALID_DURATION) {
+        printf("Invalid ID: %d and duration: %.1f\n", id, duration);
+      }
+      else {
+        printf("you broke it, what the hell did you do?\n");
+      }
+      printf("please input this log again\n");
+      continue;
+    }
 
     // store it
     ids[size] = id;
@@ -104,24 +122,28 @@ int print_logs(int ids[], float durations[], int views[], int size) {
   printf("ID      Duration      Views\n");
   for (int i = 0; i < size; i++) {
     printf("%-7d %8.1f %10d\n", ids[i], durations[i], views[i]);
-    printf("The total size is %d\n", size);
   }
-  return ERR_OK;
+  printf("The total size is %d\n", size);
+  return 0;
 }
 /* checks if the ID is valid
     Returns: 
-        - ERR_OK if valid
-        - ERR_INVALID_ID if invalid */
+        - ERR_OK if id is between 13500 and 20000, inclusive
+        - ERR_INVALID_ID otherwise */
 int invalid_id(int id) {
-  // just passes for now
-  return ERR_OK;
+  if (id >= 13500 && id <= 20000) {
+    return ERR_OK;
+  }
+  return ERR_INVALID_ID;
 }
 /* checks if the duration is valid
     Returns: 
-        - ERR_OK if valid
-        - ERR_INVALID DURATION if invalid */
+        - ERR_OK if duration is between 0.5 and 95.5, inclusive
+        - ERR_INVALID DURATION otherwise */
 int invalid_duration(float reading) {
-  // just passes for now
-  return ERR_OK;
+  if (reading >= 0.5 && reading <= 95.5) {
+    return ERR_OK;
+  }
+  return ERR_INVALID_DURATION;
 }
   

@@ -32,6 +32,8 @@ int main(void) {
     float durations[MAX_ENTRIES];
     int size = input_logs(ids, durations, views);
     print_logs(ids, durations, views, size);
+    size = remove_duplicates(ids, durations, views, size);
+    print_logs(ids, durations, views, size);
     return 0;
 }
 
