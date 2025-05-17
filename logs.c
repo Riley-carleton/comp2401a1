@@ -52,3 +52,60 @@ int remove_duplicates(int ids[], float durations[], int views[], int size) {
   
   return size;
 }
+/*
+    Reads video log entries from the user and stores them in the provided arrays.
+
+    in/out ids[]:       Array of IDs associated with each video log
+    in/out durations[]: Array of video durations associated with each video log
+    in/out views[]:     Array of video view counts associated with each video log
+    Returns: 
+        - Number of elements in the arrays */
+int input_logs(int ids[], float durations[], int views[]) {
+  int size = 0;
+  int id;
+  float duration;
+  int views_count;
+
+  // Loop until the user enters -1 -1 -1 in the input field
+  while (true) {
+    printf("Enter video ID, duration, and view count (or -1 -1 -1 to stop): ");
+    scanf("%d %f %d", &id, &duration, &views_count);
+
+    // Check if done
+    if (id == -1 && duration == -1 && views_count == -1) {
+      break;
+    }
+
+    //invalid checks will go here
+
+    // store it
+    ids[size] = id;
+    durations[size] = duration;
+    views[size] = views_count;
+    size++;
+
+    // Check if we're done
+    if (size >= MAX_ENTRIES) {
+      printf("Slow down there bud, we're outta space!\n");
+      break;
+    }
+  }
+  return size;
+}
+/* checks if the ID is valid
+    Returns: 
+        - ERR_OK if valid
+        - ERR_INVALID_ID if invalid */
+int invalid_id(int id) {
+  // just passes for now
+  return ERR_OK;
+}
+/* checks if the duration is valid
+    Returns: 
+        - ERR_OK if valid
+        - ERR_INVALID DURATION if invalid */
+int invalid_duration(float reading) {
+  // just passes for now
+  return ERR_OK;
+}
+  

@@ -27,7 +27,10 @@ int invalid_duration(float reading);
 
 int main(void) {
     // Define your variables and call the functions from logs.c here
-
+    int ids[MAX_ENTRIES];
+    int views[MAX_ENTRIES];
+    float durations[MAX_ENTRIES];
+    int size = input_logs(ids, durations, views);
     return 0;
 }
 
