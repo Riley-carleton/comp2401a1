@@ -67,7 +67,7 @@ int input_logs(int ids[], float durations[], int views[]) {
   int views_count;
 
   // Loop until the user enters -1 -1 -1 in the input field
-  while (true) {
+  while (1) {
     printf("Enter video ID, duration, and view count (or -1 -1 -1 to stop): ");
     scanf("%d %f %d", &id, &duration, &views_count);
 
@@ -91,6 +91,22 @@ int input_logs(int ids[], float durations[], int views[]) {
     }
   }
   return size;
+}
+/*
+    Prints the video log entries stored in the provided arrays.
+
+    in     ids[]:       Array of IDs associated with each video log
+    in     durations[]: Array of video durations associated with each video log
+    in     views[]:     Array of video view counts associated with each video log
+    in     size:        Number of elements in the arrays */
+int print_logs(int ids[], float durations[], int views[], int size) {
+  printf("Video Log Entries:\n");
+  printf("ID      Duration      Views\n");
+  for (int i = 0; i < size; i++) {
+    printf("%-7d %8.1f %10d\n", ids[i], durations[i], views[i]);
+    printf("The total size is %d\n", size);
+  }
+  return ERR_OK;
 }
 /* checks if the ID is valid
     Returns: 

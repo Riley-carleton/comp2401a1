@@ -31,6 +31,7 @@ int main(void) {
     int views[MAX_ENTRIES];
     float durations[MAX_ENTRIES];
     int size = input_logs(ids, durations, views);
+    print_logs(ids, durations, views, size);
     return 0;
 }
 
